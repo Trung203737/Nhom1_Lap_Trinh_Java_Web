@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm câu hỏi trắc nghiệm</title>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2>Thêm câu hỏi trắc nghiệm</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/add-question}"  method="post">
+                <div class="form-group">
+                    <label for="question">Nội dung câu hỏi:</label>
+                    <textarea class="form-control" id="question" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="answer1">Câu trả lời 1:</label>
+                    <input type="text" class="form-control" id="answer1"  required />
+                </div>
+                <div class="form-group">
+                    <label for="answer2">Câu trả lời 2:</label>
+                    <input type="text" class="form-control" id="answer2"  required />
+                </div>
+                <div class="form-group">
+                    <label for="answer3">Câu trả lời 3:</label>
+                    <input type="text" class="form-control" id="answer3"  required />
+                </div>
+                <div class="form-group">
+                    <label for="answer4">Câu trả lời 4:</label>
+                    <input type="text" class="form-control" id="answer4"  required />
+                </div>
+                <div class="form-group">
+                    <label for="correctAnswer">Đáp án đúng:</label>
+                    <select class="form-control" id="correctAnswer"  required>
+                        <option value="1">Câu trả lời 1</option>
+                        <option value="2">Câu trả lời 2</option>
+                        <option value="3">Câu trả lời 3</option>
+                        <option value="4">Câu trả lời 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Thêm câu hỏi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

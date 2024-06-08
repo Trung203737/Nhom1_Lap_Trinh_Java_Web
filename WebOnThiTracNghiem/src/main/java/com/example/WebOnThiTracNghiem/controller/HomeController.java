@@ -12,7 +12,7 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("Welcome","Web ôn thi trắc nghiệm");
         model.addAttribute("userName","Nhom1");
-        return "home/index";
+        return "Home/index";
     }
     @GetMapping("/admin")
     public String admin(Model model){
@@ -25,4 +25,5 @@ public class HomeController {
         model.addAttribute("userName","Nhom1");
         return "User/User";
     }
+
 }
