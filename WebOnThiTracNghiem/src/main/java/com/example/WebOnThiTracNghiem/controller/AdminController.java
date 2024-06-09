@@ -18,7 +18,7 @@ public class AdminController {
     }
     @GetMapping("/admin/questions")
     public String showQuestionList(Model model){
-        return "Qustion/Add-Question";
+        return "Questions/Questions-List";
     }
 
 
