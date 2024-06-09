@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <title>Exams List</title>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>Danh sách đề thi</h1>
+    <div>
+        <a th:href="@{/admin/exams/add}" class="btn btn-primary mb-3">Add new exam</a>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Number of questions</th>
+            <th>Fee</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Đề thi đại số tuyến tính</td>
+            <td>30</td>
+            <td>5000</td>
+            <td>
+                <a
+                        th:href="@{/admin/exams/detail/1}"
+                        class="btn btn-primary btn-sm"
+                >Detail</a
+                >
+                <a
+                        th:href="@{/admin/exams/edit/1}"
+                        class="btn btn-success btn-sm"
+                >Edit</a
+                >
+                <a
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure?')"
+                >Delete</a
+                >
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
