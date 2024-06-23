@@ -27,10 +27,4 @@ public class Exam {
     private Double price;
     private String note;
     private Boolean isActive;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
-    private String createdBy;
-    private String modifiedBy;
-    private LocalDateTime deletedDate;
-    private String deletedBy;
 }

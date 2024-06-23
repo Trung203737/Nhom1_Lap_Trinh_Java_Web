@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping("/user")
     public String user(Model model){
         model.addAttribute("userName","Nhom1");
-        return "User/User";
+        return "Users/User";
     }
 
 }

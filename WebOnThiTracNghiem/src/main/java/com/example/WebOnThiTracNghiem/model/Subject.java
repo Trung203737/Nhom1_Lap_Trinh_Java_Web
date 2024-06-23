@@ -21,10 +21,4 @@ public class Subject {
     private Long idSubject;
     private String subject;
     private Boolean isActive;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
-    private String createdBy;
-    private String modifiedBy;
-    private LocalDateTime deletedDate;
-    private String deletedBy;
 }

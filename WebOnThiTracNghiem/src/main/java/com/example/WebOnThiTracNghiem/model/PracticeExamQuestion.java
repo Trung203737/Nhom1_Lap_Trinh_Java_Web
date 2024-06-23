@@ -28,10 +28,4 @@ public class PracticeExamQuestion {
     private Exam exam;
     private Double point;
     private Boolean isActive;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
-    private String createdBy;
-    private String modifiedBy;
-    private LocalDateTime deletedDate;
-    private String deletedBy;
 }
