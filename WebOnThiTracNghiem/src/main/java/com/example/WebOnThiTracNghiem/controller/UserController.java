@@ -38,6 +38,8 @@ public class UserController {
             model.addAttribute("errors", errors);
             return "/Users/Register";
         }
+        user.setBalance((double) 0);
+        user.setIsActive(true);
         userService.save(user);
         userService.setDefaultRole(user.getUsername());
         return "redirect:/login";
