@@ -26,4 +26,9 @@ public class HomeController {
         return "Users/User";
     }
 
+    @GetMapping("/403")
+    public String AccesDenied(Model model) {
+        return "403";
+    }
+
 }

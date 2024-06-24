@@ -42,13 +42,14 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/", "/oauth/**",
                                 "/register", "/error")
                         .permitAll()
-                        .requestMatchers("/product/edit/**", "/product/add",
-                                "/product/delete")
+                        .requestMatchers("/admin/subjects/edit/**", "/admin/subjects/add",
+                                "/admin/subjects/delete","/admin/exams/edit/**", "/admin/exams/add",
+                                "/admin/exams/delete","/admin/questions/edit/**", "/admin/questions/add",
+                                "/admin/questions/delete","/admin","/admin/subjects","/admin/exams",
+                                "/admin/questions")
                         .hasAnyAuthority("ADMIN")
-                        .requestMatchers("/product", "/cart", "/cart/**")
+                        .requestMatchers("/user")
                         .hasAnyAuthority("ADMIN", "USER")
-                        .requestMatchers("/api/**")
-                        .permitAll()
                         .anyRequest().authenticated()
                 ).logout(logout -> logout
                         .logoutUrl("/logout")
