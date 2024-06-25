@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
 </head>
 <body>
 <h1>Thông tin admin</h1>
-<h1 th:text="${adminName}"></h1>
+<h1 sec:authentication="name" style="marginright: 20px;"></h1>
 <ul>
     <li><a href="/admin/subjects">Môn học</a></li>
     <li><a href="/admin/exams">Đề thi</a></li>
