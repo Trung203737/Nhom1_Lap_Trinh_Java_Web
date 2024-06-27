@@ -26,5 +26,5 @@ public class AccountExam {
     @JoinColumn(name = "idExam")
     private Exam exam;
 
-    private String result;
+    private float result;
 }

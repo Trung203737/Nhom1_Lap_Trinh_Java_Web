@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kết Quả Thi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Kết Quả Thi</h1>
+    <div class="alert alert-success" role="alert" th:text="${message}">Đã nộp bài thành công!</div>
+    <div class="alert alert-success" role="alert" th:text="${point}">Điểm số của bạn!</div>
+    <a href="/quiz/1" class="btn btn-primary">Làm lại bài thi</a>
+</div>
+<!-- Bootstrap JS (optional, if you need JS functionality) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

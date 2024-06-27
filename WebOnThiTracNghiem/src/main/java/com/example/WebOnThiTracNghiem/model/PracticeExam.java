@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class PracticeExam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPractive;
+    private Long idPractice;
 
     @ManyToOne
     @JoinColumn(name = "idSubject")

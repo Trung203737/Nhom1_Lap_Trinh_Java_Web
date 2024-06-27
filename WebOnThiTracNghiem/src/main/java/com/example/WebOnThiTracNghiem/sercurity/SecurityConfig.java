@@ -39,7 +39,7 @@ public class SecurityConfig {
             throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**",
+                        .requestMatchers("/styles/**","/css/**", "/js/**", "/", "/oauth/**",
                                 "/register", "/error")
                         .permitAll()
                         .requestMatchers("/admin/subjects/edit/**", "/admin/subjects/add",

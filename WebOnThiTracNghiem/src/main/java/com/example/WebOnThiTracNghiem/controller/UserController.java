@@ -1,6 +1,7 @@
 package com.example.WebOnThiTracNghiem.controller;
 
 import com.example.WebOnThiTracNghiem.model.Account;
+
 import com.example.WebOnThiTracNghiem.service.AccountService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -9,9 +10,8 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -44,4 +44,5 @@ public class UserController {
         userService.setDefaultRole(user.getUsername());
         return "redirect:/login";
     }
+
 }

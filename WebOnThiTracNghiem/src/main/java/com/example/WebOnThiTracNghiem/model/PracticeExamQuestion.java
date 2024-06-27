@@ -24,7 +24,7 @@ public class PracticeExamQuestion {
     @JoinColumn(name = "idQuestion")
     private Question question;
     @ManyToOne
-    @JoinColumn(name = "idExam")
+    @JoinColumn(name = "idPractice")
     private Exam exam;
     private Double point;
     private Boolean isActive;

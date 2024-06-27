@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đề Thi Trắc Nghiệm</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Đề Thi Trắc Nghiệm</h1>
+    <form method="post" th:action="@{/exam/quiz_Exam/{id}(id=${examId})}">
+        <div th:each="question, iterStat : ${questions}" class="mb-4">
+            <h2 class="h5">Câu hỏi số <span th:text="${iterStat.index + 1}">1</span>: <span th:text="${question.question}">Sample question</span></h2>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:name="'question' + ${question.idQuestion}" th:value="1" id="answer1-${question.idQuestion}">
+                <label class="form-check-label" th:for="'answer1' + ${question.idQuestion}" th:text="${question.answer1}">Answer 1</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:name="'question' + ${question.idQuestion}" th:value="2" id="answer2-${question.idQuestion}">
+                <label class="form-check-label" th:for="'answer2' + ${question.idQuestion}" th:text="${question.answer2}">Answer 2</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:name="'question' + ${question.idQuestion}" th:value="3" id="answer3-${question.idQuestion}">
+                <label class="form-check-label" th:for="'answer3' + ${question.idQuestion}" th:text="${question.answer3}">Answer 3</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:name="'question' + ${question.idQuestion}" th:value="4" id="answer4-${question.idQuestion}">
+                <label class="form-check-label" th:for="'answer4' + ${question.idQuestion}" th:text="${question.answer4}">Answer 4</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Nộp Bài</button>
+    </form>
+</div>
+<!-- Bootstrap JS (optional, if you need JS functionality) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
