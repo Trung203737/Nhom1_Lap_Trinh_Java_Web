@@ -1,9 +1,6 @@
 package com.example.WebOnThiTracNghiem.controller;
 
-import com.example.WebOnThiTracNghiem.model.Account;
-import com.example.WebOnThiTracNghiem.model.AccountExam;
-import com.example.WebOnThiTracNghiem.model.Exam;
-import com.example.WebOnThiTracNghiem.model.Question;
+import com.example.WebOnThiTracNghiem.model.*;
 import com.example.WebOnThiTracNghiem.repository.AccountExamRepository;
 import com.example.WebOnThiTracNghiem.repository.ExamRepository;
 import com.example.WebOnThiTracNghiem.repository.IAccountRepository;
@@ -35,12 +32,13 @@ public class QuizController {
 
     List<Question> questions;
     @GetMapping("/exam/quiz_Exam/{id}")
-    public String showQuizForm(@PathVariable("id") Long id, Model model) {
-        questions = examQuestionService.getQuestionsByExamId(id);
-        Collections.shuffle(questions);
-        model.addAttribute("questions", questions);
-        model.addAttribute("examId", id);
-        return "/Quiz/Exam";
+    public String getQuizExam(@PathVariable("id") Long examId, Model model) {
+        List<ExamQuestion> examQuestions = examQuestionService.getQuestionsByExamId(examId);
+        questions = examQuestions.stream().map(ExamQuestion::getQuestion).collect(Collectors.toList());
+
+        model.addAttribute("questions", examQuestions);
+        model.addAttribute("examId", examId);
+        return "Quiz/Exam";
     }
     @PostMapping("/exam/quiz_Exam/{id}")
     public String submitExam(@PathVariable("id") Long id, @RequestParam Map<String, String> allParams, Model model, Principal principal) {

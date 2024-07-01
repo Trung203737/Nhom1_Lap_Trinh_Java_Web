@@ -1,49 +1,43 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout}"
->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <title>Quetions List</title>
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
+    <meta charset="UTF-8">
+    <title>Questions List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
 </head>
 <body>
-<section layout:fragment="content">
+<section layout:fragment="content" class="container mt-5">
     <h1>Danh sách câu hỏi</h1>
-    <div>
-        <a th:href="@{/admin/questions/add}" class="btn btn-primary mb-3">Add new question</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Quản lý câu hỏi</h2>
+        <a th:href="@{/admin/questions/add}" class="btn btn-primary">Thêm câu hỏi mới</a>
     </div>
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
             <th>ID</th>
-            <th>Question</th>
-            <th>Actions</th>
+            <th>Câu hỏi</th>
+            <th>Đề thi</th>
+            <th>Thao tác</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>2x=x^2-1 giá trị của x là :</td>
+        <tr th:each="question, i : ${questions}">
+            <td th:text="${question.idQuestion}"></td>
+            <td th:text="${question.ndQuestion}"></td>
+            <td th:text="${examNotes[i.index]}"></td> <!-- Display exam note for each question -->
             <td>
-                <a
-                        th:href="@{/admin/questions/edit/1}"
-                        class="btn btn-success btn-sm"
-                >Edit</a
-                >
-                <a
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('Are you sure?')"
-                >Delete</a
-                >
+                <a th:href="@{/admin/questions/edit/{id}(id=${question.idQuestion})}" class="btn btn-success btn-sm">Edit</a>
+                <a th:href="@{/admin/questions/delete/{id}(id=${question.idQuestion})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

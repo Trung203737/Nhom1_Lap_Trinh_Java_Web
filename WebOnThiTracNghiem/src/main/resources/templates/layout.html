@@ -7,40 +7,71 @@
     <title>Layout</title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #212529; /* Dark text color */
+        }
+        .navbar {
+            background-color: #ffffff; /* White background for the top navbar */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+        }
+        .navbar-toggler-icon {
+            border: none; /* Remove border from the navbar toggler icon */
+        }
+        .nav-link {
+            color: #212529; /* Dark text color for links */
+        }
+        .nav-link:hover {
+            text-decoration: none; /* Remove underline on hover */
+        }
+        .dropdown-menu {
+            background-color: #ffffff; /* White background for dropdown menu */
+        }
+        .dropdown-menu a {
+            color: #212529; /* Dark text color for dropdown items */
+        }
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa; /* Light gray background on hover */
+        }
+        .container {
+            max-width: 1200px; /* Limit content width */
+        }
+    </style>
 </head>
 <body class="p-3 mt-2 ms-5 me-5 border-5 bd-example m-0 border-0">
-<nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <div id="start">
             <h2>Web ôn thi trắc nghiệm</h2>
         </div>
-        <div id="end" class="d-none d-lg-block d-xl-block d-xxl-block ">
+        <div id="end" class="d-none d-lg-block d-xl-block d-xxl-block">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link active" href="/user" aria-current="page">
-                        <button class="btn btn-outline-black">
-                            <h2 sec:authentication="name" style="marginright: 20px;"></h2>
+                        <button class="btn btn-outline-dark">
+                            <h2 sec:authentication="name" style="margin-right: 20px;"></h2>
                         </button>
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link active" href="/admin" aria-current="page">
-                        <button class="btn btn-outline-black">
+                        <button class="btn btn-outline-dark">
                             <h2>Admin</h2>
                         </button>
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link active" href="/login" aria-current="page">
-                        <button class="btn btn-outline-black">
+                        <button class="btn btn-outline-dark">
                             <h2>Login</h2>
                         </button>
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link active" aria-current="page">
                         <form th:action="@{/logout}" method="post">
-                            <button class="btn btn-outline-black" type="submit"><h2>Logout</h2></button>
+                            <button class="btn btn-outline-dark" type="submit"><h2>Logout</h2></button>
                         </form>
                     </a>
                 </li>
@@ -60,22 +91,40 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
                 </li>
+                <!-- Luyện đề dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Luyện đề
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Toán cao cấp</a></li>
-                        <li><a class="dropdown-item" href="#">Tiếng Anh B1</a></li>
-                        <li><a class="dropdown-item" href="#">Tin học</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <!-- Loop through exams and display each exam -->
+                        <th:block th:each="exam : ${exams}">
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/exam/' + ${exam.idExam}}">
+                                    <span th:text="${exam.subject.name}"></span>: <span th:text="${exam.note}"></span>
+                                </a>
+                            </li>
+                        </th:block>
                     </ul>
                 </li>
+
+                <!-- Thi thử dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Thi thử
                     </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <!-- Loop through exams and display each exam -->
+                        <th:block th:each="exam : ${exams}">
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/exam/' + ${exam.idExam}}">
+                                    <span th:text="${exam.subject.name}"></span>: <span th:text="${exam.note}"></span>
+                                </a>
+                            </li>
+                        </th:block>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Liên hệ</a>
@@ -89,8 +138,6 @@
 
     </section>
 </div>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

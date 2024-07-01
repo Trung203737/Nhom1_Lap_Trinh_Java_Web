@@ -46,7 +46,7 @@ public class SecurityConfig {
                                 "/admin/subjects/delete","/admin/exams/edit/**", "/admin/exams/add",
                                 "/admin/exams/delete","/admin/questions/edit/**", "/admin/questions/add",
                                 "/admin/questions/delete","/admin","/admin/subjects","/admin/exams",
-                                "/admin/questions")
+                                "/admin/questions", "/admin/exams/questions/add")
                         .hasAnyAuthority("ADMIN")
                         .requestMatchers("/user")
                         .hasAnyAuthority("ADMIN", "USER")
