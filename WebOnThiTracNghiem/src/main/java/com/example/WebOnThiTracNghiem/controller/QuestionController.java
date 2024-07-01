@@ -68,6 +68,9 @@ public class QuestionController {
 
         add.setExam(examAdd);
         add.setQuestion(question);
+
+        /*examAdd.setQuantity(examAdd.getQuantity() + 1);
+        examService.updateExamById(examQuestion, examAdd);*/
         examQuestionService.addQuestionExam(add);
         return "redirect:/admin/questions";
     }

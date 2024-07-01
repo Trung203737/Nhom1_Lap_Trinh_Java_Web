@@ -148,6 +148,8 @@ public class ExamController {
         examQuestion.setExam(examAdd);
         examQuestion.setQuestion(question);
 
+        /*examAdd.setQuantity(examAdd.getQuantity() + 1);
+        examService.updateExamById(id, examAdd);*/
         // Save the ExamQuestion
         examQuestionService.addQuestionExam(examQuestion);
 
