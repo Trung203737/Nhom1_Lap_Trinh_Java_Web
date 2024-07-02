@@ -30,7 +30,9 @@ public class AccountService implements UserDetailsService {
         account.setPassword(new BCryptPasswordEncoder().encode(account.getPassword()));
         accountRepository.save(account);
     }
-
+    public void saveWithoutEncoding(Account account) {
+        accountRepository.save(account);
+    }
     public void setDefaultRole(String username){
         accountRepository.findByUsername(username).ifPresentOrElse(u -> {
                     u.getRoles().add(roleRepository.findRoleByIdRole(Role.USER.value));
@@ -54,8 +56,19 @@ public class AccountService implements UserDetailsService {
                 .disabled(!user.isEnabled())
                 .build();
     }
-    public Optional<Account> findByUsername(String username) throws
-            UsernameNotFoundException {
-        return accountRepository.findByUsername(username);
+    public Account findByUsername(String username) throws UsernameNotFoundException {
+        return accountRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+    public void deductBalance(String username, Double amount) {
+        Account account = accountRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (account.getBalance() >= amount) {
+            account.setBalance(account.getBalance() - amount);
+            accountRepository.save(account);
+        } else {
+            throw new IllegalArgumentException("Insufficient balance");
+        }
     }
 }

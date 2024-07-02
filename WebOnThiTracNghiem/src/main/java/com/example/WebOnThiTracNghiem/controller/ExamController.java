@@ -5,6 +5,8 @@ import com.example.WebOnThiTracNghiem.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,7 +38,8 @@ public class ExamController {
     private final SubjectService subjectService;
     @Autowired
     private final ExamQuestionService examQuestionService;
-
+    @Autowired
+    private final AccountService accountService;
     @GetMapping("/admin/exams/add")
     public String showAddForm(Model model) {
         model.addAttribute("exam", new Exam());
@@ -48,11 +51,6 @@ public class ExamController {
         if (result.hasErrors()) {
             return "/admin/exams/add";
         }
-
-
-
-        /*model.addAttribute("message", "Sinh viên đã được thêm thành công!");
-        model.addAttribute("product", product);*/
         examService.addExam(exam);
         return "redirect:/admin/exams";
     }
@@ -183,6 +181,34 @@ public class ExamController {
         Exam exam=examService.loadExamById(id);
         model.addAttribute("exam",exam);
         return "Exams/Test";
+    }
+    @GetMapping("/quiz/{id}")
+    public String startExam(@PathVariable("id") Long examId, Model model) {
+        Exam exam = examService.findById(examId);
+        model.addAttribute("exam", exam);
+        return "Quiz/Exam";
+    }
+
+
+
+    @GetMapping("/quiz/{id}/start")
+    public String startExamProcess(@PathVariable("id") Long examId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        Exam exam = examService.findById(examId);
+        Double price = exam.getPrice();
+
+        try {
+            // Trừ tiền từ tài khoản người dùng
+            accountService.deductBalance(username, price);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", "Không đủ tiền trong tài khoản để bắt đầu bài kiểm tra.");
+            return "error"; // Chuyển hướng đến trang báo lỗi nếu không đủ tiền
+        }
+
+        // Chuyển hướng sang trang làm bài kiểm tra
+        return "/Quiz/Exam" + examId;
     }
 
 

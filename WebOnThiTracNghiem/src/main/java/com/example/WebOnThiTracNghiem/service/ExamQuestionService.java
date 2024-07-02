@@ -1,15 +1,22 @@
 package com.example.WebOnThiTracNghiem.service;
 
+import ch.qos.logback.core.model.Model;
 import com.example.WebOnThiTracNghiem.model.Exam;
 import com.example.WebOnThiTracNghiem.model.ExamQuestion;
 import com.example.WebOnThiTracNghiem.model.Question;
+import com.example.WebOnThiTracNghiem.repository.AccountRepository;
 import com.example.WebOnThiTracNghiem.repository.ExamQuestionRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,9 +26,15 @@ import java.util.stream.Collectors;
 public class ExamQuestionService {
     @Autowired
     private ExamQuestionRepository examQuestionRepository;
-
+    @Autowired
+    private AccountRepository accountRepository;
     public List<ExamQuestion> getQuestionsByExamId(Long examId) {
         return examQuestionRepository.findByExamIdExam(examId);
+    }
+    public List<ExamQuestion> getRandomQuestionsByExamId(Long examId, int quantity) {
+        List<ExamQuestion> examQuestions = examQuestionRepository.findByExamIdExam(examId);
+        Collections.shuffle(examQuestions); // Trộn ngẫu nhiên các câu hỏi
+        return examQuestions.subList(0, Math.min(quantity, examQuestions.size())); // Lấy số lượng câu hỏi yêu cầu
     }
     public List<ExamQuestion> getExamQuestionByExamList(List<Exam> exams){
         return examQuestionRepository.findExamQuestionByExamIn(exams);
@@ -81,6 +94,7 @@ public class ExamQuestionService {
 
         return ""; // Return empty string or handle accordingly if no exam found
     }
+
 
 
 }

@@ -31,7 +31,6 @@ public class Account  implements UserDetails{
     @Column(name = "password", length = 250)
     @NotBlank(message = "Password is required")
     private String password;
-
     private Boolean isActive;
     private Double balance;
 

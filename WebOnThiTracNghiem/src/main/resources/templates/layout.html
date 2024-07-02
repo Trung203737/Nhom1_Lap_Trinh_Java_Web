@@ -54,13 +54,13 @@
                         </button>
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+               <!-- <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link active" href="/admin" aria-current="page">
                         <button class="btn btn-outline-dark">
                             <h2>Admin</h2>
                         </button>
                     </a>
-                </li>
+                </li>-->
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link active" href="/login" aria-current="page">
                         <button class="btn btn-outline-dark">
@@ -91,6 +91,57 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
                 </li>
+
+                <!-- Dropdown menu for subjects -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSubjects" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Môn học
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSubjects">
+                        <!-- Loop through subjects and display each subject -->
+                        <th:block th:each="subject : ${subjects}">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/subjects/quizs/{id}(id=${subject.idSubject})}">
+                                    <span th:text="${subject.name}"></span>
+                                </a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </li>
+
+                <!--<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSubjects" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Luyện đề
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSubjects">
+                        &lt;!&ndash; Loop through subjects and display each subject &ndash;&gt;
+                        <th:block th:each="subject : ${subjects}">
+                            <li>
+                                <div class="dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdownSubject_${subject.idSubject}"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span th:text="${subject.name}"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownSubject_${subject.idSubject}">
+                                        &lt;!&ndash; Loop through exams of the current subject &ndash;&gt;
+                                        <th:block th:each="exam : ${subject.exams}">
+                                            <li>
+                                                <a class="dropdown-item" th:href="@{/examList/{id}(id=${exam.idExam})}">
+                                                    <span th:text="${exam.note}"></span>
+                                                </a>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </div>
+                            </li>
+                        </th:block>
+                    </ul>
+                </li>-->
+
+
+
                 <!-- Luyện đề dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -106,6 +157,20 @@
                                 </a>
                             </li>
                         </th:block>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Ví tiền
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <!-- Loop through exams and display each exam -->
+                        <li class="dropdown-item">
+                            <a class="nav-link" href="/payments/vnpay" aria-current="page" >
+                               nạp tiền
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -129,6 +194,18 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Liên hệ</a>
                 </li>
+
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link active" href="/login" aria-current="page">
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item ms-auto" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link active" href="/admin" aria-current="page">
+                        Admin
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>

@@ -13,4 +13,9 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     void deleteBySubject(Subject subject);
     List<Exam> findBySubject(Subject Subject);
     List<Exam> findExamsBySubject_IdSubject(Long idSubject);
+    // Phương thức tìm kiếm theo tên môn học
+    List<Exam> findBySubjectName(String subjectName);
+
+    // Phương thức tìm kiếm theo tên bài thi
+    List<Exam> findByNoteContaining(String note);
 }

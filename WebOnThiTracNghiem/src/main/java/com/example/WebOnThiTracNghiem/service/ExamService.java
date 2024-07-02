@@ -21,6 +21,10 @@ public class ExamService {
         return examRepository.findAll();
     }
 
+    public Exam findById(Long id) {
+        Optional<Exam> exam = examRepository.findById(id);
+        return exam.orElseThrow(() -> new IllegalArgumentException("Exam not found"));
+    }
     public Exam loadExamById(Long id) {
         return examRepository.findByIdExam(id);
     }
@@ -59,4 +63,6 @@ public class ExamService {
     public List<Exam> getExamsByIdSubject(Long idSubject) {
         return examRepository.findExamsBySubject_IdSubject(idSubject);
     }
+
+
 }

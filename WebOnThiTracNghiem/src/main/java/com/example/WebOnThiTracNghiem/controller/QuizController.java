@@ -32,10 +32,28 @@ public class QuizController {
 
     List<Question> questions;
     @GetMapping("/exam/quiz_Exam/{id}")
-    public String getQuizExam(@PathVariable("id") Long examId, Model model) {
+    public String getQuizExam(@PathVariable("id") Long examId, Model model, Principal principal) {
+        // Lấy thông tin người dùng đang đăng nhập
+        Account account = accountRepository.findByUsername(principal.getName());
+
+        // Tìm bài kiểm tra
+        Exam exam = examRepository.findById(examId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid exam Id:" + examId));
+
+        // Trừ tiền từ tài khoản người dùng
+        Double price = exam.getPrice();
+        if (account.getBalance() < price) {
+            model.addAttribute("errorMessage", "Không đủ tiền trong tài khoản để bắt đầu bài kiểm tra.");
+            return "Quiz/Error"; // Chuyển hướng đến trang báo lỗi nếu không đủ tiền
+        }
+
+        account.setBalance(account.getBalance() - price);
+        accountRepository.save(account); // Lưu lại thông tin tài khoản
+
+        // Lấy các câu hỏi của bài kiểm tra
         List<ExamQuestion> examQuestions = examQuestionService.getQuestionsByExamId(examId);
         questions = examQuestions.stream().map(ExamQuestion::getQuestion).collect(Collectors.toList());
-
+        Collections.shuffle(examQuestions);
         model.addAttribute("questions", examQuestions);
         model.addAttribute("examId", examId);
         return "Quiz/Exam";
@@ -77,5 +95,32 @@ public class QuizController {
         model.addAttribute("message", "Đã nộp bài thành công! Số câu trả lời đúng: " + correctCount+"/"+exam.getQuantity());
         model.addAttribute("point", "Điểm số của bạn: " + result);
         return "/Quiz/Result";
+    }
+    @GetMapping("/exam/try_Exam/{id}")
+    public String tryQuizExam(@PathVariable("id") Long examId, Model model, Principal principal) {
+        // Lấy thông tin người dùng đang đăng nhập
+        Account account = accountRepository.findByUsername(principal.getName());
+
+        // Tìm bài kiểm tra
+        Exam exam = examRepository.findById(examId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid exam Id:" + examId));
+
+        // Trừ tiền từ tài khoản người dùng
+        Double price = exam.getPrice();
+        if (account.getBalance() < price) {
+            model.addAttribute("errorMessage", "Không đủ tiền trong tài khoản để bắt đầu bài kiểm tra.");
+            return "Quiz/Error"; // Chuyển hướng đến trang báo lỗi nếu không đủ tiền
+        }
+
+        account.setBalance(account.getBalance() - price);
+        accountRepository.save(account); // Lưu lại thông tin tài khoản
+
+        // Lấy các câu hỏi ngẫu nhiên từ bài kiểm tra
+        List<ExamQuestion> examQuestions = examQuestionService.getRandomQuestionsByExamId(examId, exam.getQuantity());
+        Collections.shuffle(examQuestions);
+
+        model.addAttribute("questions", examQuestions);
+        model.addAttribute("examId", examId);
+        return "Quiz/Exam";
     }
 }
